@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#fffaf4">
+  <title>Meal Planner | KADINAMA IRU</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #fffaf4; color: #29251f; font-family: Inter, Arial, sans-serif; }
+    .page { max-width: 950px; margin: auto; padding: 28px 18px 100px; }
+    .header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 25px; }
+    h1 { margin: 0; font-size: 27px; }
+    h2 { margin: 0 0 17px; font-size: 18px; }
+    p { color: #8b8379; line-height: 1.6; }
+    .card { margin-bottom: 20px; padding: 22px; border: 1px solid #f0e7dc; border-radius: 22px; background: white; }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 15px; }
+    .field { display: flex; flex-direction: column; gap: 7px; }
+    .full { grid-column: 1 / -1; }
+    label { font-size: 13px; font-weight: 700; }
+    input, select, textarea { width: 100%; min-height: 44px; padding: 10px 12px; border: 1px solid #e9dfd3; border-radius: 12px; background: #fffdfa; color: #29251f; font: inherit; }
+    textarea { min-height: 90px; resize: vertical; }
+    .button, .link-button { min-height: 43px; padding: 0 16px; display: inline-flex; align-items: center; justify-content: center; border: 0; border-radius: 12px; background: #ff7048; color: white; text-decoration: none; font-size: 13px; font-weight: 800; cursor: pointer; }
+    .link-button { background: white; color: #5f564c; border: 1px solid #eee3d6; }
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+    .message { padding: 12px 14px; border-radius: 12px; margin-bottom: 15px; font-size: 13px; line-height: 1.5; }
+    .message[hidden] { display: none; }
+    .error { background: #fff0ed; color: #b83d2b; }
+    .success { background: #edf7eb; color: #2d6d39; }
+    .plans { display: grid; gap: 12px; }
+    .plan { padding: 16px; border-radius: 15px; background: #fffaf5; }
+    .plan-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+    .plan strong { font-size: 14px; }
+    .plan small { display: block; margin-top: 6px; color: #8b8379; line-height: 1.6; }
+    .delete-button { border: 1px solid #f0d8d0; border-radius: 10px; padding: 8px 10px; background: white; color: #b83d2b; cursor: pointer; }
+    .empty { padding: 25px 12px; border: 1px dashed #eadfd2; border-radius: 15px; text-align: center; color: #8b8379; }
+    .bottom-nav { position: fixed; z-index: 10; right: 0; bottom: 0; left: 0; display: flex; justify-content: center; gap: 7px; padding: 12px; border-top: 1px solid #eee3d6; background: rgba(255,250,244,.96); backdrop-filter: blur(16px); }
+    .bottom-nav a { flex: 1; max-width: 170px; padding: 12px 5px; border-radius: 12px; color: #8b8379; text-decoration: none; text-align: center; font-size: 12px; font-weight: 700; }
+    .bottom-nav a.active { background: #fff0e8; color: #e66b47; }
+    @media (max-width: 560px) { .grid { grid-template-columns: 1fr; } .full { grid-column: auto; } .card { padding: 17px; } h1 { font-size: 22px; } }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="header">
+      <div>
+        <h1>Meal Planner</h1>
+        <p>Plan your meals and keep your nutrition routine organized.</p>
+      </div>
+      <a class="link-button" href="../dashboard.html">Dashboard</a>
+    </header>
+
+    <section class="card">
+      <h2>Create a meal plan</h2>
+      <div id="planMessage" class="message" hidden role="status"></div>
+
+      <form id="mealPlanForm">
+        <div class="grid">
+          <div class="field">
+            <label for="planDate">Plan date</label>
+            <input id="planDate" name="planDate" type="date" required>
+          </div>
+
+          <div class="field">
+            <label for="planMealType">Meal</label>
+            <select id="planMealType" name="planMealType" required>
+              <option value="breakfast">Breakfast</option>
+              <option value="lunch">Lunch</option>
+              <option value="dinner">Dinner</option>
+              <option value="snack">Snack</option>
+            </select>
+          </div>
+
+          <div class="field full">
+            <label for="planTitle">Meal title</label>
+            <input id="planTitle" name="planTitle" maxlength="100" placeholder="e.g. Vegetable rice with curd" required>
+          </div>
+
+          <div class="field">
+            <label for="planCalories">Estimated calories (kcal)</label>
+            <input id="planCalories" name="planCalories" type="number" min="0" max="10000" value="0" required>
+          </div>
+
+          <div class="field">
+            <label for="planTime">Meal time</label>
+            <input id="planTime" name="planTime" type="time">
+          </div>
+
+          <div class="field full">
+            <label for="planNotes">Notes or ingredients</label>
+            <textarea id="planNotes" name="planNotes" maxlength="1000" placeholder="Add ingredients or preparation notes (optional)"></textarea>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="button" id="savePlanButton" type="submit">Save meal plan</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Planned meals</h2>
+      <div id="mealPlans" class="plans">
+        <div class="empty">Loading your meal plans...</div>
+      </div>
+    </section>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Main navigation">
+    <a href="../dashboard.html">Home</a>
+    <a href="food-diary.html">Food Diary</a>
+    <a class="active" href="meal-planner.html">Meal Plans</a>
+    <a href="profile.html">Profile</a>
+  </nav>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/config.js"></script>
+  <script src="../js/supabase-client.js"></script>
+  <script src="../js/meal-planner.js"></script>
+</body>
+</html>

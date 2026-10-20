@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#fffaf4">
+  <title>Food Diary | KADINAMA IRU</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #fffaf4; color: #29251f; font-family: Inter, Arial, sans-serif; }
+    .page { max-width: 900px; margin: auto; padding: 28px 18px 100px; }
+    .header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 28px; }
+    h1 { font-size: 26px; margin: 0; }
+    h2 { font-size: 18px; margin: 0 0 18px; }
+    p { color: #8b8379; line-height: 1.6; }
+    .card { background: white; border: 1px solid #f0e7dc; border-radius: 22px; padding: 22px; margin-bottom: 20px; }
+    .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 15px; }
+    .field { display: flex; flex-direction: column; gap: 7px; }
+    .field.full { grid-column: 1 / -1; }
+    label { font-size: 13px; font-weight: 700; }
+    input, select { width: 100%; min-height: 45px; padding: 10px 12px; border: 1px solid #e9dfd3; border-radius: 12px; background: #fffdfa; color: #29251f; font: inherit; }
+    input:focus, select:focus { outline: 2px solid #ffb39b; border-color: #ff7048; }
+    .button { min-height: 45px; padding: 0 18px; border: 0; border-radius: 13px; background: #ff7048; color: white; font-weight: 800; cursor: pointer; }
+    .button:disabled { opacity: .6; cursor: wait; }
+    .secondary { background: white; color: #5f564c; border: 1px solid #eee3d6; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; padding: 0 15px; min-height: 42px; border-radius: 12px; font-size: 13px; font-weight: 700; }
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+    .message { padding: 12px 14px; border-radius: 12px; margin-bottom: 15px; font-size: 13px; line-height: 1.5; }
+    .message[hidden] { display: none; }
+    .error { background: #fff0ed; color: #b83d2b; }
+    .success { background: #edf7eb; color: #2d6d39; }
+    .food-list { display: grid; gap: 12px; }
+    .food-item { display: flex; justify-content: space-between; gap: 12px; padding: 15px; border-radius: 15px; background: #fffaf5; }
+    .food-item strong { display: block; font-size: 14px; }
+    .food-item small { display: block; margin-top: 6px; color: #8b8379; line-height: 1.5; }
+    .calories { color: #e66b47; font-weight: 800; white-space: nowrap; }
+    .empty { padding: 25px 12px; border: 1px dashed #eadfd2; border-radius: 15px; text-align: center; color: #8b8379; }
+    .bottom-nav { position: fixed; z-index: 10; right: 0; bottom: 0; left: 0; display: flex; justify-content: center; gap: 7px; padding: 12px; border-top: 1px solid #eee3d6; background: rgba(255,250,244,.96); backdrop-filter: blur(16px); }
+    .bottom-nav a { flex: 1; max-width: 170px; padding: 12px 5px; border-radius: 12px; color: #8b8379; text-decoration: none; text-align: center; font-size: 12px; font-weight: 700; }
+    .bottom-nav a.active { background: #fff0e8; color: #e66b47; }
+    @media (max-width: 520px) { .form-grid { grid-template-columns: 1fr; } .field.full { grid-column: auto; } .card { padding: 17px; } h1 { font-size: 22px; } }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="header">
+      <div>
+        <h1>Food Diary</h1>
+        <p>Track your meals and daily nutrition.</p>
+      </div>
+      <a class="secondary" href="../dashboard.html">Dashboard</a>
+    </header>
+
+    <section class="card">
+      <h2>Add a food entry</h2>
+      <div id="formMessage" class="message" hidden role="status"></div>
+
+      <form id="foodForm">
+        <div class="form-grid">
+          <div class="field full">
+            <label for="foodName">Food name</label>
+            <input id="foodName" name="foodName" maxlength="100" placeholder="e.g. Idli, rice, apple" required>
+          </div>
+
+          <div class="field">
+            <label for="mealType">Meal</label>
+            <select id="mealType" name="mealType" required>
+              <option value="breakfast">Breakfast</option>
+              <option value="lunch">Lunch</option>
+              <option value="dinner">Dinner</option>
+              <option value="snack">Snack</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="foodDate">Date</label>
+            <input id="foodDate" name="foodDate" type="date" required>
+          </div>
+
+          <div class="field">
+            <label for="calories">Calories (kcal)</label>
+            <input id="calories" name="calories" type="number" min="0" max="10000" step="1" required>
+          </div>
+
+          <div class="field">
+            <label for="protein">Protein (g)</label>
+            <input id="protein" name="protein" type="number" min="0" max="1000" step="0.1" value="0" required>
+          </div>
+
+          <div class="field">
+            <label for="carbs">Carbs (g)</label>
+            <input id="carbs" name="carbs" type="number" min="0" max="1000" step="0.1" value="0" required>
+          </div>
+
+          <div class="field">
+            <label for="fat">Fat (g)</label>
+            <input id="fat" name="fat" type="number" min="0" max="1000" step="0.1" value="0" required>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="button" id="saveFoodButton" type="submit">Save food entry</button>
+          <a class="secondary" href="../dashboard.html">Cancel</a>
+        </div>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Today's entries</h2>
+      <div id="dailySummary"><p>Loading your food entries...</p></div>
+      <div class="food-list" id="foodEntries"></div>
+    </section>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Main navigation">
+    <a href="../dashboard.html">Home</a>
+    <a href="food-diary.html" class="active">Food Diary</a>
+    <a href="meal-planner.html">Meal Plans</a>
+    <a href="profile.html">Profile</a>
+  </nav>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/config.js"></script>
+  <script src="../js/supabase-client.js"></script>
+  <script src="../js/food-diary.js"></script>
+</body>
+</html>

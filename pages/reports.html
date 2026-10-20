@@ -1,0 +1,166 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#fffaf4">
+  <title>Nutrition Reports | KADINAMA IRU</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #fffaf4; color: #29251f; font-family: Inter, Arial, sans-serif; }
+    .page { max-width: 1050px; margin: auto; padding: 28px 18px 100px; }
+    .header { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 25px; }
+    h1 { margin: 0; font-size: 28px; }
+    h2 { margin: 0 0 15px; font-size: 18px; }
+    p { color: #8b8379; line-height: 1.6; }
+    .card { padding: 22px; border: 1px solid #f0e7dc; border-radius: 22px; background: white; margin-bottom: 20px; }
+    .grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+    .metric { padding: 18px; border-radius: 16px; background: #fff0e8; }
+    .metric:nth-child(2) { background: #edf5e8; }
+    .metric:nth-child(3) { background: #efedff; }
+    .metric:nth-child(4) { background: #e9f3ff; }
+    .metric span { display: block; color: #766d63; font-size: 13px; }
+    .metric strong { display: block; margin-top: 12px; font-size: 25px; }
+    .field { display: flex; flex-direction: column; gap: 7px; max-width: 260px; }
+    label { font-size: 13px; font-weight: 700; }
+    input { min-height: 44px; padding: 10px 12px; border: 1px solid #e9dfd3; border-radius: 12px; background: #fffdfa; color: #29251f; font: inherit; }
+    .button, .link-button { min-height: 42px; padding: 0 15px; display: inline-flex; justify-content: center; align-items: center; border: 0; border-radius: 12px; background: #ff7048; color: white; font-weight: 800; font-size: 13px; text-decoration: none; cursor: pointer; }
+    .link-button { background: white; color: #5f564c; border: 1px solid #eee3d6; }
+    .actions { display: flex; gap: 10px; align-items: end; flex-wrap: wrap; margin-top: 14px; }
+    .message { margin-bottom: 15px; padding: 12px 14px; border-radius: 12px; background: #fff0ed; color: #b83d2b; font-size: 13px; line-height: 1.5; }
+    .message[hidden] { display: none; }
+    .success { background: #edf7eb; color: #2d6d39; }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; min-width: 580px; }
+    th, td { padding: 13px 10px; border-bottom: 1px solid #f0e7dc; text-align: left; font-size: 13px; }
+    th { color: #766d63; }
+    .empty { padding: 24px 10px; text-align: center; color: #8b8379; }
+    .bar-row { margin: 18px 0; }
+    .bar-label { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 8px; font-size: 13px; }
+    .track { height: 10px; overflow: hidden; border-radius: 20px; background: #f1ebe3; }
+    .fill { height: 100%; width: 0; border-radius: inherit; background: #ff7048; transition: width .3s ease; }
+    .bottom-nav { position: fixed; z-index: 10; right: 0; bottom: 0; left: 0; display: flex; justify-content: center; gap: 7px; padding: 12px; border-top: 1px solid #eee3d6; background: rgba(255,250,244,.96); backdrop-filter: blur(16px); }
+    .bottom-nav a { flex: 1; max-width: 170px; padding: 12px 5px; border-radius: 12px; color: #8b8379; text-decoration: none; text-align: center; font-size: 12px; font-weight: 700; }
+    .bottom-nav a.active { background: #fff0e8; color: #e66b47; }
+    @media (max-width: 760px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 480px) { .grid { grid-template-columns: 1fr 1fr; gap: 9px; } .metric { padding: 13px; } .metric strong { font-size: 21px; } .card { padding: 16px; } h1 { font-size: 23px; } }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="header">
+      <div>
+        <h1>Nutrition Reports</h1>
+        <p>Review your daily food and hydration progress.</p>
+      </div>
+      <a class="link-button" href="../dashboard.html">Dashboard</a>
+    </header>
+
+    <section class="card">
+      <h2>Choose a date</h2>
+      <div id="reportMessage" class="message" hidden role="status"></div>
+      <form id="reportForm">
+        <div class="field">
+          <label for="reportDate">Report date</label>
+          <input id="reportDate" name="reportDate" type="date" required>
+        </div>
+        <div class="actions">
+          <button class="button" type="submit" id="loadReportButton">Load report</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Daily nutrition summary</h2>
+      <div class="grid">
+        <div class="metric">
+          <span>Calories consumed</span>
+          <strong id="reportCalories">—</strong>
+          <span>kcal</span>
+        </div>
+        <div class="metric">
+          <span>Protein</span>
+          <strong id="reportProtein">—</strong>
+          <span>grams</span>
+        </div>
+        <div class="metric">
+          <span>Carbs</span>
+          <strong id="reportCarbs">—</strong>
+          <span>grams</span>
+        </div>
+        <div class="metric">
+          <span>Fat</span>
+          <strong id="reportFat">—</strong>
+          <span>grams</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Daily calorie goal</h2>
+      <div class="bar-row">
+        <div class="bar-label">
+          <span>Progress</span>
+          <strong id="calorieProgressText">—</strong>
+        </div>
+        <div class="track">
+          <div class="fill" id="calorieProgressBar"></div>
+        </div>
+      </div>
+      <p id="calorieGoalText">Loading your daily goal...</p>
+    </section>
+
+    <section class="card">
+      <h2>Water intake</h2>
+      <div class="grid">
+        <div class="metric">
+          <span>Water logged</span>
+          <strong id="reportWater">—</strong>
+          <span>ml</span>
+        </div>
+        <div class="metric">
+          <span>Daily water goal</span>
+          <strong id="reportWaterGoal">—</strong>
+          <span>ml</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Food entries</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Food</th>
+              <th>Meal</th>
+              <th>Calories</th>
+              <th>Protein</th>
+              <th>Carbs</th>
+              <th>Fat</th>
+            </tr>
+          </thead>
+          <tbody id="reportEntries">
+            <tr><td colspan="6" class="empty">Choose a date to load your report.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Main navigation">
+    <a href="../dashboard.html">Home</a>
+    <a href="food-diary.html">Food Diary</a>
+    <a href="meal-planner.html">Meal Plans</a>
+    <a href="profile.html">Profile</a>
+  </nav>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/config.js"></script>
+  <script src="../js/supabase-client.js"></script>
+  <script src="../js/reports.js"></script>
+</body>
+</html>

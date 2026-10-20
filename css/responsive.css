@@ -1,0 +1,573 @@
+
+/* =========================================
+   KADINAMA IRU — RESPONSIVE STYLES
+   Mobile, Tablet and Desktop
+========================================= */
+
+/* Large desktop */
+@media (min-width: 1200px) {
+  .dashboard {
+    width: min(100% - 64px, 920px);
+  }
+
+  .greeting-section {
+    padding-top: 42px;
+  }
+
+  .calorie-card {
+    padding-top: 30px;
+    padding-bottom: 26px;
+  }
+
+  .macro-grid {
+    gap: 20px;
+  }
+
+  .macro-card {
+    padding: 24px 16px;
+  }
+
+  .food-section,
+  .macro-section {
+    margin-top: 42px;
+  }
+}
+
+/* Tablet and small laptop */
+@media (max-width: 900px) {
+  .topbar {
+    padding-right: 24px;
+    padding-left: 24px;
+  }
+
+  .dashboard {
+    width: min(100% - 40px, 720px);
+  }
+
+  .greeting-section {
+    padding-top: 29px;
+  }
+
+  .calorie-card {
+    padding-right: 22px;
+    padding-left: 22px;
+  }
+
+  .macro-grid {
+    gap: 12px;
+  }
+
+  .macro-card {
+    padding-right: 8px;
+    padding-left: 8px;
+  }
+}
+
+/* Mobile devices */
+@media (max-width: 600px) {
+  body {
+    font-size: 13px;
+  }
+
+  .app-shell {
+    padding-bottom: calc(95px + env(safe-area-inset-bottom, 0px));
+  }
+
+  /* Header */
+  .topbar {
+    min-height: 65px;
+    padding: 11px 17px;
+  }
+
+  .brand {
+    gap: 8px;
+  }
+
+  .brand-mark {
+    width: 35px;
+    height: 35px;
+    border-radius: 12px;
+    font-size: 21px;
+  }
+
+  .brand-name {
+    font-size: 14px;
+  }
+
+  .topbar-actions {
+    gap: 8px;
+  }
+
+  .icon-button,
+  .profile-avatar {
+    width: 36px;
+    height: 36px;
+    font-size: 19px;
+  }
+
+  /* Main layout */
+  .dashboard {
+    width: calc(100% - 32px);
+  }
+
+  .greeting-section {
+    align-items: flex-start;
+    padding: 25px 0 22px;
+  }
+
+  .greeting-section h1 {
+    font-size: 26px;
+    letter-spacing: -1px;
+  }
+
+  .greeting-subtitle {
+    max-width: 240px;
+    font-size: 12px;
+  }
+
+  .greeting-section > .text-link {
+    margin-top: 24px;
+    font-size: 10px;
+  }
+
+  .eyebrow {
+    font-size: 9px;
+    letter-spacing: 1.1px;
+  }
+
+  /* Calendar */
+  .calendar-section {
+    margin-bottom: 21px;
+  }
+
+  .calendar-heading h2,
+  .section-title-row h2 {
+    font-size: 17px;
+  }
+
+  .calendar-month {
+    padding: 7px 10px;
+    font-size: 10px;
+  }
+
+  .week-calendar {
+    gap: 5px;
+  }
+
+  .day-item {
+    min-height: 64px;
+    gap: 6px;
+    border-radius: 15px;
+  }
+
+  .day-item span {
+    font-size: 8px;
+  }
+
+  .day-item strong {
+    font-size: 15px;
+  }
+
+  /* Calorie ring */
+  .calorie-card {
+    padding: 21px 16px 18px;
+    border-radius: 25px;
+  }
+
+  .goal-badge {
+    padding: 6px 9px;
+    font-size: 9px;
+  }
+
+  .calorie-main {
+    padding: 25px 0 22px;
+  }
+
+  .calorie-ring {
+    width: 205px;
+    height: 205px;
+  }
+
+  .calorie-ring::before {
+    inset: 10px;
+  }
+
+  .calorie-ring-inner {
+    width: 173px;
+    height: 173px;
+    border-width: 6px;
+  }
+
+  .calorie-ring-inner > strong {
+    font-size: 37px;
+  }
+
+  .calorie-caption {
+    font-size: 10px;
+  }
+
+  .calorie-total {
+    font-size: 11px;
+  }
+
+  .calorie-unit {
+    margin-top: 9px;
+    font-size: 8px;
+  }
+
+  .calorie-summary {
+    gap: 15px;
+    padding-top: 16px;
+  }
+
+  .summary-item {
+    gap: 8px;
+  }
+
+  .summary-item strong {
+    font-size: 14px;
+  }
+
+  .summary-item div span {
+    font-size: 9px;
+  }
+
+  .summary-divider {
+    height: 30px;
+  }
+
+  /* Macronutrients */
+  .macro-section,
+  .food-section {
+    margin-top: 29px;
+  }
+
+  .macro-section .section-title-row,
+  .food-section .section-title-row {
+    margin-bottom: 14px;
+  }
+
+  .macro-grid {
+    gap: 9px;
+  }
+
+  .macro-card {
+    padding: 14px 5px 13px;
+    border-radius: 19px;
+  }
+
+  .macro-icon {
+    width: 33px;
+    height: 33px;
+    margin-bottom: 9px;
+    border-radius: 11px;
+    font-size: 17px;
+  }
+
+  .macro-progress {
+    width: 67px;
+    height: 67px;
+  }
+
+  .macro-track,
+  .macro-value {
+    stroke-width: 9;
+  }
+
+  .macro-number {
+    font-size: 17px;
+  }
+
+  .macro-card h3 {
+    margin-top: 10px;
+    font-size: 10px;
+  }
+
+  .macro-card > p {
+    font-size: 9px;
+  }
+
+  /* Food diary */
+  .empty-meals {
+    padding: 27px 16px;
+    border-radius: 20px;
+  }
+
+  .empty-meal-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 18px;
+    font-size: 26px;
+  }
+
+  .empty-meals h3 {
+    font-size: 14px;
+  }
+
+  .empty-meals p {
+    font-size: 11px;
+  }
+
+  .meal-card {
+    gap: 11px;
+    padding: 12px;
+    border-radius: 18px;
+  }
+
+  .meal-emoji {
+    width: 46px;
+    height: 46px;
+    border-radius: 15px;
+    font-size: 23px;
+  }
+
+  .meal-details h3 {
+    font-size: 12px;
+  }
+
+  .meal-details p {
+    font-size: 10px;
+  }
+
+  .meal-calories {
+    font-size: 11px;
+  }
+
+  /* Water */
+  .water-card {
+    gap: 12px;
+    margin-top: 27px;
+    padding: 16px 13px;
+    border-radius: 20px;
+  }
+
+  .water-icon {
+    width: 43px;
+    height: 43px;
+    border-radius: 15px;
+    font-size: 23px;
+  }
+
+  .water-info h2 {
+    font-size: 13px;
+  }
+
+  .water-info > p:not(.eyebrow) {
+    font-size: 10px;
+  }
+
+  .water-add {
+    padding: 9px 10px;
+    font-size: 10px;
+  }
+
+  /* Floating add button */
+  .floating-add {
+    right: 18px;
+    bottom: calc(91px + env(safe-area-inset-bottom, 0px));
+    width: 54px;
+    height: 54px;
+    border-radius: 20px;
+    font-size: 31px;
+  }
+
+  /* Bottom navigation */
+  .bottom-nav {
+    min-height: calc(72px + env(safe-area-inset-bottom, 0px));
+    padding: 8px 5px calc(8px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .nav-item {
+    gap: 4px;
+  }
+
+  .nav-item > span {
+    min-width: 32px;
+    height: 29px;
+    font-size: 22px;
+  }
+
+  .nav-item small {
+    font-size: 9px;
+  }
+
+  .nav-item.nav-scan > span {
+    width: 42px;
+    height: 42px;
+    margin-top: -24px;
+    font-size: 25px;
+  }
+
+  /* Food dialog */
+  .meal-dialog {
+    width: calc(100% - 24px);
+    max-height: 85vh;
+    border-radius: 24px;
+  }
+
+  .meal-form {
+    padding: 21px 18px;
+  }
+
+  .dialog-heading h2 {
+    font-size: 21px;
+  }
+
+  .meal-form input,
+  .meal-form select {
+    min-height: 46px;
+    font-size: 13px;
+  }
+
+  /* Splash screen */
+  .welcome-logo {
+    width: 96px;
+    height: 96px;
+    border-radius: 30px;
+  }
+
+  .logo-letter {
+    font-size: 56px;
+  }
+
+  .logo-leaf {
+    width: 33px;
+    height: 33px;
+    font-size: 16px;
+  }
+
+  .welcome-overline {
+    font-size: 8px;
+    letter-spacing: 1.5px;
+  }
+
+  .welcome-title {
+    font-size: clamp(26px, 8vw, 35px);
+    letter-spacing: -1.2px;
+  }
+
+  .welcome-tagline {
+    font-size: 12px;
+  }
+
+  .splash-particles span {
+    font-size: 22px;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 360px) {
+  .dashboard {
+    width: calc(100% - 24px);
+  }
+
+  .topbar {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .brand-name {
+    font-size: 12px;
+  }
+
+  .greeting-section h1 {
+    font-size: 23px;
+  }
+
+  .greeting-section > .text-link {
+    max-width: 85px;
+    white-space: nowrap;
+  }
+
+  .day-item {
+    min-height: 59px;
+    border-radius: 12px;
+  }
+
+  .day-item span {
+    font-size: 7px;
+  }
+
+  .calorie-ring {
+    width: 190px;
+    height: 190px;
+  }
+
+  .calorie-ring-inner {
+    width: 160px;
+    height: 160px;
+  }
+
+  .calorie-ring-inner > strong {
+    font-size: 34px;
+  }
+
+  .macro-grid {
+    gap: 6px;
+  }
+
+  .macro-progress {
+    width: 59px;
+    height: 59px;
+  }
+
+  .macro-card h3 {
+    font-size: 9px;
+  }
+
+  .water-card {
+    gap: 8px;
+    padding: 13px 10px;
+  }
+
+  .water-add {
+    padding: 8px;
+    font-size: 9px;
+  }
+}
+
+/* Landscape phones */
+@media (max-height: 500px) and (orientation: landscape) {
+  .welcome-content {
+    transform: scale(0.78);
+  }
+
+  .welcome-logo {
+    width: 72px;
+    height: 72px;
+    margin-bottom: 12px;
+    border-radius: 22px;
+  }
+
+  .logo-letter {
+    font-size: 42px;
+  }
+
+  .loading-track {
+    margin-top: 15px;
+  }
+
+  .welcome-skip {
+    margin-top: 12px;
+  }
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .welcome-content,
+  .welcome-logo,
+  .logo-leaf,
+  .welcome-title,
+  .loading-track span,
+  .splash-particles span {
+    animation: none !important;
+  }
+
+  .welcome-screen,
+  .calorie-ring,
+  .macro-card,
+  .meal-card,
+  .water-track span {
+    transition: none !important;
+  }
+}

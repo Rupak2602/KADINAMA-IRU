@@ -1,0 +1,389 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#fff8f1">
+  <title>Settings | KADINAMA IRU</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <style>
+    :root {
+      --orange: #f47721;
+      --orange-dark: #db5d0d;
+      --ink: #252019;
+      --muted: #81766b;
+      --line: #f0e4d8;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #fff8f1;
+      color: var(--ink);
+      font-family: Inter, Arial, sans-serif;
+    }
+
+    .settings-page {
+      width: min(100% - 28px, 760px);
+      margin: auto;
+      padding: 28px 0 45px;
+    }
+
+    .settings-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 28px;
+    }
+
+    .back-link {
+      display: grid;
+      place-items: center;
+      width: 46px;
+      height: 46px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: white;
+      color: var(--ink);
+      font-size: 24px;
+      text-decoration: none;
+    }
+
+    .eyebrow {
+      margin: 0 0 5px;
+      color: var(--orange);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.8px;
+    }
+
+    h1, h2, p { overflow-wrap: anywhere; }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(25px, 5vw, 34px);
+      letter-spacing: -1px;
+    }
+
+    .intro {
+      margin-bottom: 25px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .settings-card {
+      margin-bottom: 18px;
+      padding: 23px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      box-shadow: 0 12px 35px rgba(90, 55, 25, 0.045);
+    }
+
+    .settings-card h2 {
+      margin: 0 0 7px;
+      font-size: 19px;
+    }
+
+    .description {
+      margin: 0 0 20px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .setting-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 15px 0;
+      border-top: 1px solid #f4eee7;
+    }
+
+    .setting-row strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 14px;
+    }
+
+    .setting-row small {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .setting-row input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      accent-color: var(--orange);
+      cursor: pointer;
+    }
+
+    .field-label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    select {
+      width: 100%;
+      min-height: 46px;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fffaf5;
+      color: var(--ink);
+      font: inherit;
+    }
+
+    .button {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 45px;
+      padding: 12px 18px;
+      border: 0;
+      border-radius: 13px;
+      background: var(--orange);
+      color: white;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 800;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .button:hover { background: var(--orange-dark); }
+
+    .button-secondary {
+      background: #fff0e3;
+      color: #914717;
+    }
+
+    .button-secondary:hover { background: #ffe4cf; }
+
+    .button-danger {
+      background: #b83232;
+      color: white;
+    }
+
+    .button-danger:hover { background: #922727; }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .message {
+      min-height: 20px;
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .message[data-state="error"] { color: #b83232; }
+    .message[data-state="success"] { color: #16865b; }
+
+    .security-note {
+      padding: 13px;
+      border-radius: 12px;
+      background: #fff5df;
+      color: #825323;
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 480px) {
+      .settings-page { padding-top: 18px; }
+      .settings-card { padding: 19px; }
+      .actions .button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <main class="settings-page">
+    <header class="settings-header">
+      <a href="../dashboard.html" class="back-link" aria-label="Back to dashboard">←</a>
+      <div>
+        <p class="eyebrow">YOUR EXPERIENCE</p>
+        <h1>Settings</h1>
+      </div>
+    </header>
+
+    <p class="intro">
+      Manage your preferences, account security, and nutrition experience.
+    </p>
+
+    <section class="settings-card">
+      <h2>Preferences</h2>
+      <p class="description">Customize how KADINAMA IRU works for you.</p>
+
+      <div class="setting-row">
+        <div>
+          <strong>Daily nutrition reminders</strong>
+          <small>Preference only; notifications require additional setup.</small>
+        </div>
+        <input type="checkbox" id="nutritionReminders">
+      </div>
+
+      <div class="setting-row">
+        <div>
+          <strong>Weekly nutrition summary</strong>
+          <small>Save your preference for a future reports feature.</small>
+        </div>
+        <input type="checkbox" id="weeklySummary">
+      </div>
+
+      <label class="field-label" for="defaultMeal">Default meal type</label>
+      <select id="defaultMeal">
+        <option value="breakfast">Breakfast</option>
+        <option value="lunch">Lunch</option>
+        <option value="dinner">Dinner</option>
+        <option value="snack">Snack</option>
+      </select>
+
+      <div style="margin-top: 18px;">
+        <button type="button" class="button" id="savePreferences">
+          Save Preferences
+        </button>
+      </div>
+      <p class="message" id="preferencesMessage" role="status"></p>
+    </section>
+
+    <section class="settings-card">
+      <h2>Account Security</h2>
+      <p class="description">
+        Manage your sign-in session and password.
+      </p>
+      <div class="actions">
+        <a href="../forgot-password.html" class="button button-secondary">
+          Reset Password
+        </a>
+        <button type="button" class="button button-danger" id="signOutButton">
+          Sign Out
+        </button>
+      </div>
+      <p class="message" id="accountMessage" role="status"></p>
+    </section>
+
+    <section class="settings-card">
+      <h2>About</h2>
+      <p class="description">
+        KADINAMA IRU helps you track food, estimate nutrition, plan meals,
+        and monitor daily water intake.
+      </p>
+      <p class="security-note">
+        Food scanner nutrition values are estimates and should not be treated
+        as exact measurements or medical advice.
+      </p>
+    </section>
+  </main>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/supabase-client.js"></script>
+  <script>
+    (() => {
+      const defaults = {
+        nutritionReminders: false,
+        weeklySummary: false,
+        defaultMeal: "breakfast"
+      };
+
+      const preferenceKey = "kadinama_iru_preferences";
+      const reminderInput = document.getElementById("nutritionReminders");
+      const weeklyInput = document.getElementById("weeklySummary");
+      const mealSelect = document.getElementById("defaultMeal");
+      const preferencesMessage = document.getElementById("preferencesMessage");
+      const accountMessage = document.getElementById("accountMessage");
+      const saveButton = document.getElementById("savePreferences");
+      const signOutButton = document.getElementById("signOutButton");
+
+      function showMessage(element, text, state) {
+        element.textContent = text;
+        element.dataset.state = state || "";
+      }
+
+      try {
+        const saved = JSON.parse(localStorage.getItem(preferenceKey) || "{}");
+        const preferences = { ...defaults, ...saved };
+
+        reminderInput.checked = Boolean(preferences.nutritionReminders);
+        weeklyInput.checked = Boolean(preferences.weeklySummary);
+
+        if (["breakfast", "lunch", "dinner", "snack"].includes(preferences.defaultMeal)) {
+          mealSelect.value = preferences.defaultMeal;
+        }
+      } catch {
+        showMessage(
+          preferencesMessage,
+          "Could not load saved preferences. You can choose them again.",
+          "error"
+        );
+      }
+
+      saveButton.addEventListener("click", () => {
+        const preferences = {
+          nutritionReminders: reminderInput.checked,
+          weeklySummary: weeklyInput.checked,
+          defaultMeal: mealSelect.value
+        };
+
+        try {
+          localStorage.setItem(preferenceKey, JSON.stringify(preferences));
+          showMessage(
+            preferencesMessage,
+            "Preferences saved on this device.",
+            "success"
+          );
+        } catch {
+          showMessage(
+            preferencesMessage,
+            "Could not save preferences in this browser.",
+            "error"
+          );
+        }
+      });
+
+      signOutButton.addEventListener("click", async () => {
+        if (!window.supabaseClient) {
+          showMessage(
+            accountMessage,
+            "Authentication is not ready. Check your Supabase client setup.",
+            "error"
+          );
+          return;
+        }
+
+        signOutButton.disabled = true;
+        showMessage(accountMessage, "Signing out...", "");
+
+        try {
+          const { error } = await window.supabaseClient.auth.signOut();
+
+          if (error) throw error;
+
+          window.location.href = "../login.html";
+        } catch (error) {
+          console.error("Sign out error:", error);
+          showMessage(
+            accountMessage,
+            "Could not sign out. Please try again.",
+            "error"
+          );
+          signOutButton.disabled = false;
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

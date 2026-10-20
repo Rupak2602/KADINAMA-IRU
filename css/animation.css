@@ -1,0 +1,325 @@
+
+/* =========================================
+   KADINAMA IRU - MOBILE-FIRST ANIMATIONS
+   Lightweight, smooth and accessible
+========================================= */
+
+:root {
+  --animation-orange: #ff7048;
+  --animation-orange-light: #fff0e8;
+  --animation-duration: 280ms;
+  --animation-easing: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* 1. Page entrance */
+
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+body {
+  animation: pageEnter 450ms var(--animation-easing) both;
+}
+
+/* 2. Reusable entrance animations */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+
+  70% {
+    opacity: 1;
+    transform: scale(1.015);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* 3. Automatic stagger for common UI elements */
+
+.dashboard-card,
+.settings-card,
+.auth-card,
+.upload-card,
+.results-card,
+.nutrient,
+.food-item,
+.macro-card,
+.stat-card,
+.report-card,
+.meal-card,
+.profile-card {
+  animation: slideUp 450ms var(--animation-easing) both;
+}
+
+.dashboard-grid > :nth-child(1) { animation-delay: 40ms; }
+.dashboard-grid > :nth-child(2) { animation-delay: 90ms; }
+.dashboard-grid > :nth-child(3) { animation-delay: 140ms; }
+.dashboard-grid > :nth-child(4) { animation-delay: 190ms; }
+
+.macro-grid > :nth-child(1) { animation-delay: 80ms; }
+.macro-grid > :nth-child(2) { animation-delay: 130ms; }
+.macro-grid > :nth-child(3) { animation-delay: 180ms; }
+
+/* 4. Brand and logo */
+
+.dashboard-logo,
+.auth-brand-mark {
+  transition:
+    transform var(--animation-duration) var(--animation-easing),
+    box-shadow var(--animation-duration) ease;
+}
+
+.dashboard-logo img,
+.auth-brand-mark img {
+  transition: transform 350ms var(--animation-easing);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .dashboard-logo:hover,
+  .auth-brand-mark:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 112, 72, 0.2);
+  }
+
+  .dashboard-logo:hover img,
+  .auth-brand-mark:hover img {
+    transform: scale(1.04);
+  }
+}
+
+/* 5. Buttons: smooth press feedback */
+
+button,
+.primary-button,
+.header-button,
+.water-button,
+.back-link,
+.secondary-button,
+.dashboard-bottom-nav a {
+  transition:
+    transform 160ms ease,
+    background-color 200ms ease,
+    border-color 200ms ease,
+    box-shadow 200ms ease,
+    color 200ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:active:not(:disabled),
+.primary-button:active,
+.header-button:active,
+.water-button:active:not(:disabled),
+.secondary-button:active,
+.dashboard-bottom-nav a:active {
+  transform: scale(0.975);
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+/* 6. Orange button glow on desktop only */
+
+@media (hover: hover) and (pointer: fine) {
+  .primary-button:hover:not(:disabled),
+  .auth-submit:hover:not(:disabled),
+  .scan-button:hover:not(:disabled) {
+    box-shadow: 0 8px 24px rgba(255, 112, 72, 0.2);
+    transform: translateY(-2px);
+  }
+}
+
+/* 7. Food scanner image preview */
+
+#imagePreviewContainer {
+  animation: slideUp 350ms var(--animation-easing) both;
+}
+
+#foodImagePreview {
+  animation: scaleIn 400ms var(--animation-easing) both;
+  transform-origin: center;
+}
+
+#foodImagePreview,
+.preview-container img {
+  max-width: 100%;
+}
+
+/* 8. Scanner results */
+
+#nutritionResults:not([hidden]) {
+  animation: slideUp 420ms var(--animation-easing) both;
+}
+
+#nutritionResults .nutrient,
+.nutrient-grid .nutrient {
+  animation: popIn 350ms var(--animation-easing) both;
+}
+
+#nutritionResults .nutrient:nth-child(2) { animation-delay: 40ms; }
+#nutritionResults .nutrient:nth-child(3) { animation-delay: 80ms; }
+#nutritionResults .nutrient:nth-child(4) { animation-delay: 120ms; }
+
+/* 9. Loading spinner */
+
+@keyframes smoothSpin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-spinner,
+.spinner {
+  animation: smoothSpin 800ms linear infinite;
+}
+
+@keyframes loadingPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+
+[data-state="loading"] {
+  animation: loadingPulse 1.2s ease-in-out infinite;
+}
+
+/* 10. Progress bars */
+
+.water-progress-fill,
+.progress-fill,
+.progress-bar-fill,
+#calorieProgressBar {
+  transition: width 450ms var(--animation-easing);
+}
+
+/* 11. Small interactive card effects */
+
+@media (hover: hover) and (pointer: fine) {
+  .dashboard-card,
+  .settings-card,
+  .food-item,
+  .macro-card,
+  .nutrient,
+  .meal-card,
+  .report-card {
+    transition:
+      transform 220ms var(--animation-easing),
+      box-shadow 220ms ease,
+      border-color 220ms ease;
+  }
+
+  .dashboard-card:hover,
+  .settings-card:hover,
+  .report-card:hover {
+    box-shadow: 0 12px 30px rgba(75, 47, 25, 0.06);
+  }
+
+  .food-item:hover,
+  .meal-card:hover {
+    transform: translateY(-2px);
+    border-color: #ffd7c7;
+  }
+}
+
+/* 12. Focus visibility for keyboard users */
+
+:focus-visible {
+  outline: 3px solid rgba(255, 112, 72, 0.65);
+  outline-offset: 3px;
+}
+
+/* 13. Toast and status messages */
+
+.toast,
+.notification,
+.success-message {
+  animation: slideDown 280ms var(--animation-easing) both;
+}
+
+.error-message {
+  animation: fadeIn 220ms ease both;
+}
+
+/* 14. Fixed mobile navigation */
+
+.dashboard-bottom-nav {
+  animation: slideUp 350ms var(--animation-easing) both;
+}
+
+/* 15. Reduced motion accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+}

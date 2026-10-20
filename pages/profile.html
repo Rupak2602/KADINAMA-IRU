@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#fffaf4">
+  <title>Profile | KADINAMA IRU</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #fffaf4; color: #29251f; font-family: Inter, Arial, sans-serif; }
+    .page { max-width: 850px; margin: auto; padding: 28px 18px 100px; }
+    .header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 25px; }
+    h1 { margin: 0; font-size: 27px; }
+    h2 { margin: 0 0 18px; font-size: 18px; }
+    p { color: #8b8379; line-height: 1.6; }
+    .card { margin-bottom: 20px; padding: 22px; border: 1px solid #f0e7dc; border-radius: 22px; background: white; }
+    .profile-top { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+    .avatar { width: 64px; height: 64px; display: grid; place-items: center; border-radius: 22px; background: #ff7048; color: white; font-size: 26px; font-weight: 800; }
+    .profile-top h2 { margin: 0 0 5px; }
+    .profile-top p { margin: 0; font-size: 13px; overflow-wrap: anywhere; }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 15px; }
+    .field { display: flex; flex-direction: column; gap: 7px; }
+    .full { grid-column: 1 / -1; }
+    label { font-size: 13px; font-weight: 700; }
+    input, select { width: 100%; min-height: 45px; padding: 10px 12px; border: 1px solid #e9dfd3; border-radius: 12px; background: #fffdfa; color: #29251f; font: inherit; }
+    input:focus, select:focus { outline: 2px solid #ffb39b; border-color: #ff7048; }
+    .button, .link-button { min-height: 44px; padding: 0 16px; display: inline-flex; align-items: center; justify-content: center; border: 0; border-radius: 12px; background: #ff7048; color: white; text-decoration: none; font-size: 13px; font-weight: 800; cursor: pointer; }
+    .link-button { background: white; color: #5f564c; border: 1px solid #eee3d6; }
+    .button:disabled { opacity: .6; cursor: wait; }
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+    .message { padding: 12px 14px; border-radius: 12px; margin-bottom: 15px; font-size: 13px; line-height: 1.5; }
+    .message[hidden] { display: none; }
+    .error { background: #fff0ed; color: #b83d2b; }
+    .success { background: #edf7eb; color: #2d6d39; }
+    .help { font-size: 12px; }
+    .bottom-nav { position: fixed; z-index: 10; right: 0; bottom: 0; left: 0; display: flex; justify-content: center; gap: 7px; padding: 12px; border-top: 1px solid #eee3d6; background: rgba(255,250,244,.96); backdrop-filter: blur(16px); }
+    .bottom-nav a { flex: 1; max-width: 170px; padding: 12px 5px; border-radius: 12px; color: #8b8379; text-decoration: none; text-align: center; font-size: 12px; font-weight: 700; }
+    .bottom-nav a.active { background: #fff0e8; color: #e66b47; }
+    @media (max-width: 520px) { .grid { grid-template-columns: 1fr; } .full { grid-column: auto; } .card { padding: 17px; } h1 { font-size: 22px; } }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="header">
+      <div>
+        <h1>My Profile</h1>
+        <p>Manage your account and nutrition goals.</p>
+      </div>
+      <a class="link-button" href="../dashboard.html">Dashboard</a>
+    </header>
+
+    <section class="card">
+      <div class="profile-top">
+        <div class="avatar" id="profileAvatar">K</div>
+        <div>
+          <h2 id="profileHeading">Your profile</h2>
+          <p id="profileEmail">Loading account...</p>
+        </div>
+      </div>
+
+      <div id="profileMessage" class="message" hidden role="status"></div>
+
+      <form id="profileForm">
+        <h2>Personal details</h2>
+        <div class="grid">
+          <div class="field full">
+            <label for="fullName">Full name</label>
+            <input id="fullName" name="fullName" maxlength="100" required>
+          </div>
+          <div class="field">
+            <label for="age">Age</label>
+            <input id="age" name="age" type="number" min="13" max="120" placeholder="Optional">
+          </div>
+          <div class="field">
+            <label for="gender">Gender (optional)</label>
+            <select id="gender" name="gender">
+              <option value="">Prefer not to say</option>
+              <option value="female">Female</option>
+              <option value="male">Male</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="height">Height (cm)</label>
+            <input id="height" name="height" type="number" min="50" max="260" step="0.1" placeholder="Optional">
+          </div>
+          <div class="field">
+            <label for="weight">Weight (kg)</label>
+            <input id="weight" name="weight" type="number" min="10" max="500" step="0.1" placeholder="Optional">
+          </div>
+        </div>
+        <p class="help">Only enter personal measurements you want to store.</p>
+        <div class="actions">
+          <button class="button" id="saveProfileButton" type="submit">Save profile</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Nutrition goals</h2>
+      <p>Set daily targets for your nutrition routine.</p>
+
+      <form id="goalsForm">
+        <div class="grid">
+          <div class="field">
+            <label for="dailyCalories">Daily calories (kcal)</label>
+            <input id="dailyCalories" name="dailyCalories" type="number" min="500" max="10000" value="2000" required>
+          </div>
+          <div class="field">
+            <label for="dailyWater">Daily water (ml)</label>
+            <input id="dailyWater" name="dailyWater" type="number" min="250" max="10000" step="250" value="2000" required>
+          </div>
+          <div class="field">
+            <label for="dailyProtein">Protein goal (g)</label>
+            <input id="dailyProtein" name="dailyProtein" type="number" min="0" max="1000" value="50" required>
+          </div>
+          <div class="field">
+            <label for="dailyCarbs">Carbs goal (g)</label>
+            <input id="dailyCarbs" name="dailyCarbs" type="number" min="0" max="1500" value="250" required>
+          </div>
+          <div class="field">
+            <label for="dailyFat">Fat goal (g)</label>
+            <input id="dailyFat" name="dailyFat" type="number" min="0" max="1000" value="65" required>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="button" id="saveGoalsButton" type="submit">Save goals</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Main navigation">
+    <a href="../dashboard.html">Home</a>
+    <a href="food-diary.html">Food Diary</a>
+    <a href="meal-planner.html">Meal Plans</a>
+    <a href="profile.html" class="active">Profile</a>
+  </nav>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/config.js"></script>
+  <script src="../js/supabase-client.js"></script>
+  <script src="../js/profile.js"></script>
+</body>
+</html>

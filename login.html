@@ -1,0 +1,484 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#fffaf4">
+  <title>Login | KADINAMA IRU</title>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/animation.css">
+
+  <style>
+    .auth-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 28px 18px;
+      background: #fffaf4;
+    }
+
+    .auth-container {
+      width: 100%;
+      max-width: 420px;
+      margin: auto;
+    }
+
+   .auth-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  margin: 0 auto 32px;
+}
+    .auth-brand-mark {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #ff7048;
+}
+
+.auth-brand-mark img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+  
+}
+
+    .auth-brand h1 {
+      margin: 0;
+      color: #29251f;
+      font-size: 25px;
+      font-weight: 800;
+      letter-spacing: -0.8px;
+    }
+
+    .auth-brand p {
+      margin: 9px 0 0;
+      color: #898176;
+      font-size: 14px;
+    }
+
+    .auth-card {
+      padding: 30px 26px;
+      border: 1px solid #f0e7dc;
+      border-radius: 25px;
+      background: #fff;
+      box-shadow: 0 16px 45px rgba(70, 48, 25, 0.07);
+    }
+
+    .auth-card h2 {
+      margin: 0 0 8px;
+      color: #29251f;
+      font-size: 25px;
+      letter-spacing: -0.7px;
+    }
+
+    .auth-description {
+      margin: 0 0 25px;
+      color: #8b8379;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .auth-form-group {
+      margin-bottom: 19px;
+    }
+
+    .auth-form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #403a32;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .auth-input-wrap {
+      position: relative;
+    }
+
+    .auth-input {
+      display: block;
+      width: 100%;
+      min-height: 49px;
+      padding: 13px 14px;
+      border: 1px solid #e9e0d5;
+      border-radius: 13px;
+      outline: none;
+      background: #fffdfb;
+      color: #29251f;
+      font: inherit;
+      font-size: 14px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .auth-input:focus {
+      border-color: #ff7048;
+      box-shadow: 0 0 0 3px rgba(255, 112, 72, 0.12);
+    }
+
+    .auth-input::placeholder {
+      color: #b0a79c;
+    }
+
+    .auth-password {
+      padding-right: 75px;
+    }
+
+    .auth-toggle-password {
+      position: absolute;
+      top: 50%;
+      right: 13px;
+      transform: translateY(-50%);
+      border: 0;
+      background: transparent;
+      color: #e66b47;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .auth-form-options {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 3px 0 23px;
+      font-size: 12px;
+    }
+
+    .auth-remember {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: #71695f;
+    }
+
+    .auth-remember input {
+      accent-color: #ff7048;
+    }
+
+    .auth-link {
+      color: #e66b47;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .auth-link:hover {
+      text-decoration: underline;
+    }
+
+    .auth-submit {
+      width: 100%;
+      min-height: 50px;
+      border: 0;
+      border-radius: 14px;
+      background: #ff7048;
+      color: #fff;
+      cursor: pointer;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 800;
+      box-shadow: 0 8px 18px rgba(255, 112, 72, 0.19);
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .auth-submit:hover {
+      transform: translateY(-2px);
+      background: #f5623a;
+    }
+
+    .auth-submit:disabled {
+      cursor: wait;
+      opacity: 0.7;
+      transform: none;
+    }
+
+    .auth-message {
+      display: none;
+      margin: 0 0 17px;
+      padding: 12px 13px;
+      border-radius: 11px;
+      font-size: 13px;
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+    }
+
+    .auth-message.error {
+      display: block;
+      background: #fff0ed;
+      color: #b83d2b;
+    }
+
+    .auth-message.success {
+      display: block;
+      background: #edf8ef;
+      color: #26753b;
+    }
+
+    .auth-footer {
+      margin: 24px 0 0;
+      text-align: center;
+      color: #81786e;
+      font-size: 13px;
+    }
+
+    .auth-back {
+      display: block;
+      margin-top: 22px;
+      text-align: center;
+      color: #837a70;
+      text-decoration: none;
+      font-size: 12px;
+    }
+
+    .auth-back:hover {
+      color: #e66b47;
+    }
+
+    @media (max-width: 420px) {
+      .auth-card {
+        padding: 25px 20px;
+      }
+
+      .auth-brand h1 {
+        font-size: 23px;
+      }
+
+
+      
+/* Login page entrance animations */
+
+.auth-brand {
+  animation: slideDown 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.auth-brand-mark {
+  animation: popIn 650ms cubic-bezier(0.22, 1, 0.36, 1) 100ms both;
+}
+
+.auth-card {
+  animation: slideUp 750ms cubic-bezier(0.22, 1, 0.36, 1) 180ms both;
+}
+
+.auth-card .auth-form-group {
+  animation: slideUp 500ms ease both;
+}
+
+.auth-card .auth-form-group:nth-child(1) {
+  animation-delay: 250ms;
+}
+
+.auth-card .auth-form-group:nth-child(2) {
+  animation-delay: 350ms;
+}
+
+.auth-card .auth-submit {
+  animation: fadeIn 600ms ease 450ms both;
+}
+
+    }
+  </style>
+</head>
+
+<body>
+  <main class="auth-page">
+    <div class="auth-container">
+
+      <header class="auth-brand">
+        <div class="auth-brand-mark">
+  <img src="assets/images/kadinama-logo.png" alt="KADINAMA IRU Logo">
+</div>
+        <h1 class="brand-tamil">கடினமா இரு</h1>
+        <p>Your daily nutrition companion</p>
+      </header>
+
+      <section class="auth-card">
+        <h2>Welcome back!</h2>
+
+        <p class="auth-description">
+          Sign in to continue your nutrition journey.
+        </p>
+
+        <div
+          id="authMessage"
+          class="auth-message"
+          role="status"
+          aria-live="polite"
+        ></div>
+
+        <form id="loginForm">
+          <div class="auth-form-group">
+            <label for="email">Email address</label>
+            <input
+              class="auth-input"
+              type="email"
+              id="email"
+              name="email"
+              placeholder="you@example.com"
+              autocomplete="email"
+              required
+            >
+          </div>
+
+          <div class="auth-form-group">
+            <label for="password">Password</label>
+
+            <div class="auth-input-wrap">
+              <input
+                class="auth-input auth-password"
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+                required
+              >
+
+              <button
+                class="auth-toggle-password"
+                type="button"
+                id="togglePassword"
+                aria-label="Show password"
+              >Show</button>
+            </div>
+          </div>
+
+          <div class="auth-form-options">
+            <label class="auth-remember">
+              <input type="checkbox" id="rememberMe">
+              <span>Remember me</span>
+            </label>
+
+            <a class="auth-link" href="forgot-password.html">
+              Forgot password?
+            </a>
+          </div>
+
+          <button class="auth-submit" type="submit" id="loginButton">
+            Sign In
+          </button>
+        </form>
+
+        <p class="auth-footer">
+          Don't have an account?
+          <a class="auth-link" href="signup.html">Create account</a>
+        </p>
+      </section>
+
+      <a class="auth-back" href="index.html">
+        &larr; Back to home
+      </a>
+
+    </div>
+  </main>
+
+  <!-- Load Supabase before initializing the client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/auth.js"></script>
+
+  <script>
+    "use strict";
+
+    const loginForm = document.getElementById("loginForm");
+    const loginButton = document.getElementById("loginButton");
+    const authMessage = document.getElementById("authMessage");
+    const passwordInput = document.getElementById("password");
+    const togglePassword = document.getElementById("togglePassword");
+
+    function showMessage(message, type = "error") {
+      authMessage.textContent = message;
+      authMessage.className = "auth-message " + type;
+    }
+
+    togglePassword.addEventListener("click", function () {
+      const showPassword = passwordInput.type === "password";
+
+      passwordInput.type = showPassword ? "text" : "password";
+      togglePassword.textContent = showPassword ? "Hide" : "Show";
+
+      togglePassword.setAttribute(
+        "aria-label",
+        showPassword ? "Hide password" : "Show password"
+      );
+    });
+
+    // Check whether the user already has a valid session.
+    (async function checkExistingSession() {
+      if (!window.KadinamaAuth) return;
+
+      await window.KadinamaAuth.redirectIfAuthenticated("dashboard.html");
+    })();
+
+    loginForm.addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      authMessage.className = "auth-message";
+      authMessage.textContent = "";
+
+      const email = document.getElementById("email").value.trim();
+      const password = passwordInput.value;
+
+      if (!email || !password) {
+        showMessage("Please enter your email and password.");
+        return;
+      }
+
+      if (!window.supabaseClient) {
+        showMessage(
+          "Supabase is not connected. Check js/config.js and the browser console."
+        );
+        return;
+      }
+
+      loginButton.disabled = true;
+      loginButton.textContent = "Signing in...";
+
+      try {
+        const { data, error } =
+          await window.supabaseClient.auth.signInWithPassword({
+            email: email,
+            password: password
+          });
+
+        if (error) throw error;
+
+        if (!data.user) {
+          throw new Error("Login could not be completed. Please try again.");
+        }
+
+        showMessage(
+          "Login successful! Opening your dashboard...",
+          "success"
+        );
+
+        window.location.replace("dashboard.html");
+
+      } catch (error) {
+        const message =
+          error.message === "Invalid login credentials"
+            ? "Incorrect email or password. Please try again."
+            : error.message || "Unable to sign in. Please try again.";
+
+        showMessage(message);
+
+      } finally {
+        loginButton.disabled = false;
+        loginButton.textContent = "Sign In";
+      }
+    });
+  </script>
+</body>
+</html>
+```

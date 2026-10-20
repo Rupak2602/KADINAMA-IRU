@@ -1,0 +1,677 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#fffaf4">
+  <title>Dashboard | KADINAMA IRU</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link
+  href="https://fonts.googleapis.com/css2?family=Arima:wght@700;800&display=swap"
+  rel="stylesheet"
+>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    [hidden] { display: none !important; }
+
+    body {
+      margin: 0;
+      background: #fffaf4;
+      color: #29251f;
+      font-family: Inter, Arial, sans-serif;
+    }
+
+    button, a { font: inherit; }
+    button { cursor: pointer; }
+
+    .dashboard-page {
+      min-height: 100vh;
+      padding: 24px 18px 105px;
+    }
+
+    .dashboard-container {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .dashboard-header, .dashboard-brand, .header-actions,
+    .card-heading, .water-total, .water-actions {
+      display: flex;
+      align-items: center;
+    }
+
+    .dashboard-header, .card-heading {
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .dashboard-header { margin-bottom: 28px; }
+    .dashboard-brand { gap: 12px; }
+
+   .dashboard-logo {
+  width: 55px;
+  height: 55px;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #ff7048;
+}
+
+.dashboard-logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+    .dashboard-brand h1 {
+      margin: 0;
+      font-size: 20px;
+      letter-spacing: -.6px;
+    }
+
+    .dashboard-brand p {
+      margin: 5px 0 0;
+      color: #91877b;
+      font-size: 12px;
+    }
+
+    .header-actions {
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 9px;
+    }
+
+    .header-button, .water-button, .primary-button {
+      min-height: 44px;
+      padding: 0 15px;
+      border: 0;
+      border-radius: 14px;
+      font-size: 13px;
+      font-weight: 750;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .2s ease, transform .2s ease;
+    }
+
+    .header-button {
+      border: 1px solid #eee3d6;
+      background: white;
+      color: #5f564c;
+    }
+
+    .header-button:hover {
+      background: #fff0e8;
+      border-color: #ffd7c7;
+    }
+
+    .settings-header-button {
+      color: #d85b31;
+      background: #fff0e8;
+      border-color: #ffddcf;
+    }
+
+    .greeting { margin-bottom: 25px; }
+
+    .greeting h2 {
+      margin: 0 0 7px;
+      font-size: clamp(24px, 4vw, 32px);
+      letter-spacing: -1px;
+    }
+
+    .greeting p, .muted, .note { color: #8b8379; }
+
+    .greeting p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr);
+      gap: 20px;
+    }
+
+    .dashboard-card {
+      min-width: 0;
+      padding: 23px;
+      border: 1px solid #f0e7dc;
+      border-radius: 24px;
+      background: white;
+      box-shadow: 0 8px 26px rgba(70, 48, 25, .035);
+    }
+
+    .card-heading { margin-bottom: 22px; }
+    .card-heading h3 { margin: 0; font-size: 17px; }
+    .muted { font-size: 12px; }
+
+    .calorie-layout {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 28px;
+    }
+
+    .calorie-ring {
+      width: 180px;
+      height: 180px;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      position: relative;
+      border-radius: 50%;
+      background: conic-gradient(#ff7048 0deg, #f5e9dc 0deg);
+    }
+
+    .calorie-ring::before {
+      content: "";
+      position: absolute;
+      inset: 13px;
+      border-radius: 50%;
+      background: white;
+    }
+
+    .ring-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    .ring-content strong {
+      display: block;
+      font-size: 34px;
+    }
+
+    .ring-content span {
+      color: #91877b;
+      font-size: 12px;
+    }
+
+    .calorie-summary { flex: 1; min-width: 120px; }
+
+    .summary-item {
+      padding: 13px 0;
+      border-bottom: 1px solid #f2ebe3;
+    }
+
+    .summary-item:last-child { border-bottom: 0; }
+
+    .summary-item span {
+      display: block;
+      color: #91877b;
+      font-size: 12px;
+    }
+
+    .summary-item strong {
+      display: block;
+      margin-top: 5px;
+      font-size: 19px;
+    }
+
+    .macro-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .macro-card {
+      padding: 15px 12px;
+      border-radius: 16px;
+      background: #fff2e9;
+      text-align: center;
+    }
+
+    .macro-card:nth-child(2) { background: #edf5e8; }
+    .macro-card:nth-child(3) { background: #fff0e8; }
+
+    .macro-card span, .macro-card small {
+      display: block;
+      color: #756b60;
+      font-size: 12px;
+    }
+
+    .macro-card strong {
+      display: block;
+      margin-top: 9px;
+      font-size: 20px;
+    }
+
+    .macro-card small {
+      margin-top: 4px;
+      font-size: 11px;
+    }
+
+    .water-total { gap: 7px; margin-bottom: 18px; }
+    .water-total strong { font-size: 33px; letter-spacing: -1px; }
+    .water-total span { color: #8b8379; font-size: 13px; }
+
+    .water-progress {
+      height: 10px;
+      overflow: hidden;
+      border-radius: 20px;
+      background: #e9f0f7;
+    }
+
+    .water-progress-fill {
+      width: 0%;
+      height: 100%;
+      border-radius: inherit;
+      background: #6ba9e8;
+      transition: width .3s ease;
+    }
+
+    .water-actions { gap: 10px; margin-top: 18px; }
+
+    .water-button {
+      flex: 1;
+      background: #eaf4ff;
+      color: #326ea9;
+    }
+
+    .water-button.secondary {
+      flex: 0 0 46px;
+      background: #f5f0e9;
+      color: #756b60;
+    }
+
+    .primary-button {
+      background: #ff7048;
+      color: white;
+    }
+
+    .primary-button:hover {
+      background: #f5623a;
+      transform: translateY(-1px);
+    }
+
+    .food-list { display: grid; gap: 12px; }
+
+    .food-empty {
+      padding: 25px 14px;
+      border: 1px dashed #eadfd2;
+      border-radius: 16px;
+      color: #8b8379;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .food-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 13px;
+      border-radius: 15px;
+      background: #fffaf5;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .food-item strong {
+      display: block;
+      font-size: 13px;
+    }
+
+    .food-item span {
+      color: #8b8379;
+      font-size: 11px;
+    }
+
+    .note {
+      margin-top: 18px;
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
+    .dashboard-message {
+      margin-bottom: 18px;
+      padding: 13px 15px;
+      border-radius: 13px;
+      background: #fff0ed;
+      color: #b83d2b;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .dashboard-bottom-nav {
+      position: fixed;
+      z-index: 20;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: flex;
+      justify-content: center;
+      gap: 7px;
+      padding: 12px 12px calc(12px + env(safe-area-inset-bottom));
+      border-top: 1px solid #eee3d6;
+      background: rgba(255, 250, 244, .97);
+      backdrop-filter: blur(16px);
+    }
+
+    .dashboard-bottom-nav a {
+      max-width: 170px;
+      min-width: 0;
+      flex: 1;
+      padding: 12px 5px;
+      border-radius: 12px;
+      color: #8b8379;
+      text-align: center;
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .dashboard-bottom-nav a.active {
+      background: #fff0e8;
+      color: #e66b47;
+    }
+
+    @media (max-width: 760px) {
+      .dashboard-grid { grid-template-columns: 1fr; }
+      .dashboard-card { padding: 19px; }
+      .calorie-layout { gap: 20px; }
+    }
+
+    @media (max-width: 520px) {
+      .dashboard-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .header-actions {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .header-button { flex: 1; }
+
+      .dashboard-page { padding: 18px 13px 100px; }
+      .dashboard-brand h1 { font-size: 17px; }
+      .dashboard-brand p { font-size: 11px; }
+      .dashboard-logo { width: 44px; height: 44px; }
+      .calorie-ring { width: 165px; height: 165px; }
+      .macro-grid { gap: 7px; }
+      .macro-card { padding: 12px 8px; }
+      .macro-card strong { font-size: 17px; }
+
+      .dashboard-bottom-nav { gap: 2px; padding-inline: 5px; }
+      .dashboard-bottom-nav a { font-size: 10px; padding: 12px 3px; }
+    }
+
+.brand-tamil {
+  font-family: "Arima", serif;
+  font-size: 25px;
+  font-weight: 800;
+  letter-spacing: 0;
+  color: #151b30;
+  line-height: 1.4;
+}
+  </style>
+</head>
+
+<body>
+  <main class="dashboard-page">
+    <div class="dashboard-container">
+      <header class="dashboard-header">
+        <div class="dashboard-brand">
+          <div class="dashboard-logo">
+  <img src="assets/images/kadinama-logo.png" alt="KADINAMA IRU Logo">
+</div>
+          <div>
+            <h1 class="brand-tamil">கடினமா இரு</h1>
+            <p>Your daily nutrition companion</p>
+          </div>
+        </div>
+
+        <div class="header-actions">
+          <a class="header-button" href="pages/profile.html">Profile</a>
+          <a class="header-button settings-header-button" href="pages/settings.html">Settings</a>
+          <button class="header-button" id="logoutButton" type="button">Log out</button>
+        </div>
+      </header>
+
+      <div id="dashboardMessage" class="dashboard-message" hidden></div>
+
+      <section class="greeting">
+        <h2>Welcome back, <span id="userName">there</span>!</h2>
+        <p>Small choices today can lead to healthier habits tomorrow.</p>
+      </section>
+
+      <div class="dashboard-grid">
+        <section class="dashboard-card">
+          <div class="card-heading">
+            <h3>Daily calories</h3>
+            <span class="muted" id="todayLabel">Today</span>
+          </div>
+
+          <div class="calorie-layout">
+            <div class="calorie-ring" id="calorieRing">
+              <div class="ring-content">
+                <strong id="caloriesConsumed">0</strong>
+                <span>kcal consumed</span>
+              </div>
+            </div>
+
+            <div class="calorie-summary">
+              <div class="summary-item">
+                <span>Daily goal</span>
+                <strong id="calorieGoal">2,000 kcal</strong>
+              </div>
+              <div class="summary-item">
+                <span>Remaining</span>
+                <strong id="caloriesRemaining">2,000 kcal</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="macro-grid">
+            <div class="macro-card">
+              <span>Protein</span>
+              <strong id="proteinValue">0 g</strong>
+              <small>Daily intake</small>
+            </div>
+            <div class="macro-card">
+              <span>Carbs</span>
+              <strong id="carbsValue">0 g</strong>
+              <small>Daily intake</small>
+            </div>
+            <div class="macro-card">
+              <span>Fat</span>
+              <strong id="fatValue">0 g</strong>
+              <small>Daily intake</small>
+            </div>
+          </div>
+
+          <p class="note">Nutrition totals update from your recorded food entries when dashboard integration is configured.</p>
+        </section>
+
+        <section class="dashboard-card">
+          <div class="card-heading">
+            <h3>Water tracker</h3>
+            <span class="muted">Daily hydration</span>
+          </div>
+
+          <div class="water-total">
+            <strong id="waterConsumed" data-water-total data-total="0">0</strong>
+            <span>ml of <span id="waterGoal">2,000</span> ml</span>
+          </div>
+
+          <div
+            class="water-progress"
+            id="waterProgress"
+            role="progressbar"
+            aria-label="Daily water intake"
+            aria-valuemin="0"
+            aria-valuemax="2000"
+            aria-valuenow="0"
+          >
+            <div class="water-progress-fill" id="waterProgressFill" data-water-progress></div>
+          </div>
+
+          <div class="water-actions">
+            <button class="water-button" id="addWaterButton" data-water-action="add" type="button">
+              + Add 250 ml
+            </button>
+            <button class="water-button secondary" id="removeWaterButton" data-water-action="remove" type="button" aria-label="Remove latest water entry">
+              −
+            </button>
+          </div>
+
+          <p class="note">Water entries are tracked through your account when database access is available.</p>
+        </section>
+
+        <section class="dashboard-card">
+          <div class="card-heading">
+            <h3>Today's food diary</h3>
+            <span class="muted" id="foodCount">0 entries</span>
+          </div>
+
+          <div class="food-list" id="foodList">
+            <div class="food-empty">
+              No food entries yet.<br>
+              Start by adding your first meal.
+            </div>
+          </div>
+
+          <p><a class="primary-button" href="pages/food-diary.html">Open food diary</a></p>
+          <p class="note">Your recorded meals will appear here when the dashboard loads them.</p>
+        </section>
+
+        <section class="dashboard-card">
+          <div class="card-heading">
+            <h3>Quick actions</h3>
+          </div>
+
+          <div class="food-list">
+            <a class="food-item" href="pages/food-scanner.html">
+              <div>
+                <strong>Food scanner</strong>
+                <span>Estimate food calories and nutrients</span>
+              </div>
+              <span aria-hidden="true">→</span>
+            </a>
+
+            <a class="food-item" href="pages/food-diary.html">
+              <div>
+                <strong>Food diary</strong>
+                <span>Record your meals</span>
+              </div>
+              <span aria-hidden="true">→</span>
+            </a>
+
+            <a class="food-item" href="pages/meal-planner.html">
+              <div>
+                <strong>Meal planner</strong>
+                <span>Organize your meals</span>
+              </div>
+              <span aria-hidden="true">→</span>
+            </a>
+
+            <a class="food-item" href="pages/reports.html">
+              <div>
+                <strong>Nutrition reports</strong>
+                <span>Review your nutrition progress</span>
+              </div>
+              <span aria-hidden="true">→</span>
+            </a>
+
+            <a class="food-item" href="pages/settings.html">
+              <div>
+                <strong>Settings</strong>
+                <span>Manage preferences and account</span>
+              </div>
+              <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <nav class="dashboard-bottom-nav" aria-label="Main navigation">
+    <a class="active" href="dashboard.html">Home</a>
+    <a href="pages/food-diary.html">Food Diary</a>
+    <a href="pages/meal-planner.html">Meal Plans</a>
+    <a href="pages/profile.html">Profile</a>
+    <a href="pages/settings.html">Settings</a>
+  </nav>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/dashboard.js"></script>
+
+  <script>
+    "use strict";
+
+    const messageElement = document.getElementById("dashboardMessage");
+    const logoutButton = document.getElementById("logoutButton");
+
+    document.getElementById("todayLabel").textContent =
+      new Intl.DateTimeFormat("en", {
+        weekday: "short",
+        month: "short",
+        day: "numeric"
+      }).format(new Date());
+
+    async function initializeDashboardUI() {
+      if (!window.supabaseClient) {
+        messageElement.textContent =
+          "Supabase is not connected. Check your configuration and reload this page.";
+        messageElement.hidden = false;
+        return;
+      }
+
+      const { data, error } = await window.supabaseClient.auth.getUser();
+
+      if (error || !data.user) {
+        window.location.replace("login.html");
+        return;
+      }
+
+      document.getElementById("userName").textContent =
+        data.user.user_metadata?.full_name ||
+        data.user.email?.split("@")[0] ||
+        "there";
+    }
+
+    logoutButton.addEventListener("click", async () => {
+      if (!window.supabaseClient) return;
+
+      logoutButton.disabled = true;
+      logoutButton.textContent = "Logging out...";
+
+      const { error } = await window.supabaseClient.auth.signOut();
+
+      if (error) {
+        console.error("Logout failed:", error.message);
+        messageElement.textContent = "Unable to log out. Please try again.";
+        messageElement.hidden = false;
+        logoutButton.disabled = false;
+        logoutButton.textContent = "Log out";
+        return;
+      }
+
+      window.location.replace("login.html");
+    });
+
+    initializeDashboardUI().catch((error) => {
+      console.error("Dashboard initialization failed:", error);
+      messageElement.textContent = "Unable to load the dashboard. Please refresh the page.";
+      messageElement.hidden = false;
+    });
+  </script>
+</body>
+</html>

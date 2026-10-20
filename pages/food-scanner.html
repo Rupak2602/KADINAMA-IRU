@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f7f8fc">
+  <title>Food Scanner | KADINAMA IRU</title>
+  <link rel="stylesheet" href="../css/scanner.css">
+</head>
+<body>
+  <main class="scanner-page">
+    <header class="scanner-header">
+      <a class="back-link" href="../dashboard.html" aria-label="Back to dashboard">←</a>
+      <div>
+        <p class="eyebrow">SMART NUTRITION</p>
+        <h1>Food Scanner</h1>
+      </div>
+    </header>
+
+    <section class="intro">
+      <h2>Know what you eat.</h2>
+      <p>Scan a meal to estimate its calories and nutrients.</p>
+    </section>
+
+    <section class="upload-card">
+      <div class="upload-icon" aria-hidden="true">⌁</div>
+      <h2>Scan your food</h2>
+      <p>Take a clear photo of your meal or choose an image from your gallery.</p>
+
+      <input
+        type="file"
+        id="foodImage"
+        accept="image/jpeg,image/png,image/webp"
+        capture="environment"
+        hidden
+      >
+
+      <button type="button" id="chooseImageButton" class="primary-button">
+        Choose Food Image
+      </button>
+
+      <div id="imagePreviewContainer" class="preview-container" hidden>
+        <img id="foodImagePreview" alt="Selected food preview">
+        <button type="button" id="removeImageButton" class="secondary-button">
+          Remove Image
+        </button>
+      </div>
+
+      <p id="scannerMessage" class="message" role="status" aria-live="polite">
+        Choose a food image to get started.
+      </p>
+
+      <button type="button" id="scanFoodButton" class="scan-button" disabled>
+        Analyze Food
+      </button>
+    </section>
+
+    <section class="results-card" id="nutritionResults" hidden>
+      <p class="eyebrow">NUTRITION ESTIMATE</p>
+      <h2 id="resultFoodName">Food name</h2>
+      <p id="resultServingSize" class="serving-size"></p>
+
+      <div class="calorie-panel">
+        <span>Estimated calories</span>
+        <strong><span id="resultCalories">0</span> kcal</strong>
+      </div>
+
+      <div class="nutrient-grid">
+        <div class="nutrient">
+          <span>Protein</span>
+          <strong><span id="resultProtein">0</span> g</strong>
+        </div>
+        <div class="nutrient">
+          <span>Carbohydrates</span>
+          <strong><span id="resultCarbs">0</span> g</strong>
+        </div>
+        <div class="nutrient">
+          <span>Fat</span>
+          <strong><span id="resultFat">0</span> g</strong>
+        </div>
+        <div class="nutrient">
+          <span>Fiber</span>
+          <strong><span id="resultFiber">0</span> g</strong>
+        </div>
+      </div>
+
+      <p id="resultNotes" class="result-notes"></p>
+      <p class="disclaimer">
+        Nutrition values are estimates based on the image and assumed serving size.
+        Actual values may vary with ingredients and cooking methods.
+      </p>
+
+      <button type="button" id="saveFoodButton" class="primary-button" disabled>
+        Save to Food Diary
+      </button>
+    </section>
+
+    <footer>
+      <p>KADINAMA IRU · Your daily nutrition companion</p>
+    </footer>
+  </main>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/supabase-client.js"></script>
+  <script src="../js/food-scanner.js"></script>
+</body>
+</html>
