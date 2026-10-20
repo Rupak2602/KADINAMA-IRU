@@ -1,0 +1,21 @@
+
+{
+  "id": "/",
+  "name": "KADINAMA IRU",
+  "short_name": "KADINAMA",
+  "description": "Your personal nutrition and food tracking companion.",
+  "start_url": "/index.html",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fffaf5",
+  "theme_color": "#ff7a24",
+  "icons": [
+    {
+      "src": "/assets/images/kadinama-logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
